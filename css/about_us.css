@@ -1,0 +1,660 @@
+/* Base Styles */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --accent-color: #3b82f6;
+    --text-color: #333333;
+    --light-text: #6b7280;
+    --light-bg: #f9fafb;
+    --white: #ffffff;
+    --dark-bg: #1f2937;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--white);
+    padding-top: 80px; /* For fixed header */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: auto;
+    width: 100px;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    font-weight: 500;
+    transition: color 0.3s ease;
+        cursor: pointer; /* <-- ADD THIS LINE */
+
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+/* Page Banner */
+.page-banner {
+    position: relative;
+    height: 60vh; /* Use 100vh for full screen */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Keeps text on the left */
+    padding: 0 8%;
+    color: #fff;
+    overflow: hidden;
+}
+
+.page-banner .banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.page-banner .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* dark overlay */
+    z-index: 1;
+}
+
+.page-banner .banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.page-banner .banner-content h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .page-banner .banner-content h1 {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner {
+        text-align: center;
+        justify-content: center;
+        padding: 0 5%;
+    }
+    .page-banner .banner-content h1 {
+        font-size: 2rem;
+    }
+}
+
+/* About Intro Section */
+.about-intro {
+    padding: 100px 0;
+    background-color:rgba(211, 233, 241, 0.596);
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section-subtitle {
+    display: inline-block;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.intro-content p {
+    color: var(--light-text);
+}
+
+.intro-image {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.signature {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.signature-info h5 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.signature-info p {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+/* Mission & Vision Section */
+.mission-vision {
+    padding: 100px 0;
+    background-color: aliceblue;
+}
+
+.mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.mv-card {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.mv-card:hover {
+    transform: translateY(-10px);
+}
+
+.mv-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(37, 99, 235, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: var(--primary-color);
+    font-size: 30px;
+}
+
+.mv-card h3 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.mv-card p {
+    color: var(--text-color);
+    font-size: 18px;
+}
+
+.mv-card p strong {
+    color: var(--primary-color);
+}
+
+/* Core Values */
+.core-values {
+    text-align: center;
+}
+
+.core-values h3 {
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: var(--text-color);
+    position: relative;
+}
+
+.core-values h3::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.value-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(37, 99, 235, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.value-card h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    padding: 80px 0 0;
+    background-color: var(--dark-bg);
+    color: var(--white);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-col h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.footer-col p {
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    opacity: 1;
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.contact-info i {
+    color: var(--primary-color);
+    margin-top: 3px;
+}
+
+.footer-bottom {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom p {
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .page-banner {
+        padding: 120px 0;
+        
+    }
+    
+    .banner-content h1 {
+        font-size: 88px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Intro Section */
+    .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .intro-image {
+        order: -1;
+    }
+    
+    .intro-content {
+        text-align: center;
+    }
+    
+    .signature {
+        justify-content: center;
+    }
+    
+    /* Mission & Vision */
+    .mv-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* Core Values */
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar.active {
+        left: 0;
+    }
+    
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    /* Banner */
+    .page-banner {
+        padding: 100px 0 60px;
+    }
+    
+    .banner-content h1 {
+        font-size: 68px;
+        text-align: center;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 30px;
+    }
+    
+    /* Core Values */
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+    
+    .contact-info li {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    /* Footer bottom */
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Banner */
+    .banner-content h1 {
+        font-size: 58px;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 26px;
+    }
+    
+    /* Mission & Vision Cards */
+    .mv-card {
+        padding: 30px 20px;
+    }
+    
+    /* Core Values Cards */
+    .value-card {
+        padding: 25px 20px;
+    }
+    
+    /* Signature */
+    .signature {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .signature-info {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 362px) {
+    /* Banner */
+    .banner-content h1 {
+        font-size: 48px;
+    }
+    
+    /* Section Titles */
+    .section-title {
+        font-size: 26px;
+    }
+    
+    /* Mission & Vision Cards */
+    .mv-card {
+        padding: 30px 20px;
+    }
+    
+    /* Core Values Cards */
+    .value-card {
+        padding: 25px 20px;
+    }
+    
+    /* Signature */
+    .signature {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .signature-info {
+        margin-top: 15px;
+    }
+}
+/* --- Instagram Icon Customization (Pink Icon) --- */
+
+/* 1. Make the Instagram icon glyph pink by default */
+.footer-social a[href*="instagram.com"] i {
+    color: #E1306C; /* Instagram Pink */
+    transition: color 0.3s ease; /* Optional: for a smooth color change on hover */
+}

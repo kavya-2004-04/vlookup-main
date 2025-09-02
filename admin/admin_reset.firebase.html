@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reset Password (Firebase)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+    .reset-container {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+    }
+    .reset-container h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: #333;
+    }
+    .info { color: #757575; font-size: 14px; text-align: center; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 6px; }
+    .form-group input {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px;
+    }
+    .form-group input:focus { outline: none; border-color: #007bff; }
+    .btn { width: 100%; background-color: #007bff; color: white; border: none; padding: 12px;
+           font-size: 16px; border-radius: 6px; cursor: pointer; }
+    .btn:hover { background-color: #0056b3; }
+    .error { color: #ea4335; text-align: center; margin-top: 10px; display: none; }
+    .success { color: #34a853; text-align: center; margin-top: 10px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="reset-container">
+    <h2>Set a new password</h2>
+    <p class="info">Enter and confirm a new password for your account.</p>
+    <form id="resetForm">
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" required />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" required />
+      </div>
+      <button type="submit" class="btn">Reset Password</button>
+      <p id="error" class="error"></p>
+      <p id="success" class="success">Password reset successfully! Redirecting…</p>
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
+    import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+
+    // TODO: Replace with the same config you used on the login page
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const oobCode = params.get('oobCode');
+    const mode = params.get('mode');
+
+    const form = document.getElementById('resetForm');
+    const errorEl = document.getElementById('error');
+    const successEl = document.getElementById('success');
+
+    function showError(msg) { errorEl.textContent = msg || ''; errorEl.style.display = msg ? 'block' : 'none'; }
+    function showSuccess(show) { successEl.style.display = show ? 'block' : 'none'; }
+
+    // Basic guard: this page should be opened from the reset link
+    if (!oobCode || mode !== 'resetPassword') {
+      showError('Invalid or missing password reset code.');
+      // Do not proceed if not from a valid reset link
+    } else {
+      // Optionally verify code up front (helps catch expired links early)
+      verifyPasswordResetCode(auth, oobCode).catch(() => {
+        showError('This reset link is invalid or has expired.');
+      });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showError('');
+      showSuccess(false);
+
+      const newPassword = (document.getElementById('newPassword')?.value || '').trim();
+      const confirmPassword = (document.getElementById('confirmPassword')?.value || '').trim();
+
+      if (!newPassword || !confirmPassword) return showError('Please fill both fields.');
+      if (newPassword !== confirmPassword) return showError('Passwords do not match.');
+      if (!oobCode) return showError('Missing reset code.');
+
+      try {
+        await confirmPasswordReset(auth, oobCode, newPassword);
+        showSuccess(true);
+        setTimeout(() => { window.location.href = '/admin/login.html'; }, 1800);
+      } catch (err) {
+        console.error(err);
+        let msg = 'Could not reset password.';
+        if (err.code === 'auth/expired-action-code') msg = 'This reset link has expired.';
+        if (err.code === 'auth/invalid-action-code') msg = 'Invalid reset code.';
+        showError(msg);
+      }
+    });
+  </script>
+</body>
+</html>

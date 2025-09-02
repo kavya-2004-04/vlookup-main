@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBiYs7FoNkZoCGISsbpUW_VTHJ3dLssheo",
+    authDomain: "vlookup-eb2ae.firebaseapp.com",
+    projectId: "vlookup-eb2ae",
+    storageBucket: "vlookup-eb2ae.appspot.com",
+    messagingSenderId: "41494813156",
+    appId: "1:41494813156:web:6b98657c5c1469769f4ff1",
+    measurementId: "G-1PBVX0QKRE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.fs = { collection, getDocs, addDoc, deleteDoc, doc };
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLookUp Global Technologies</title>
+    <link rel="stylesheet" href="css/career.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="js/chatbot.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="assets/Logo1.png" alt="Digital Agency Logo"></a>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about_us.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <!-- <li><a href="#">Projects</a></li>
+                    <li><a href="#">Blog</a></li> -->
+                    <li><a href="career.html" class="active">Careers</a></li>
+                    <li><a href="contact_us.html">Contact</a></li>
+                    <li><a href="admin/admin_career/login.firebase.html">Admin Login</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    <body>
+
+  <p id="status"></p>
+
+  <div id="snackbar"></div>
+
+
+  <!-- Link JS -->
+  <script src="js/career.js"></script>
+</body>
+
+    <!-- Career Page Banner -->
+<section class="page-banner">
+    <img src="assets/careers_banner.jpg" alt="Career Banner" class="banner-img">
+    <div class="banner-overlay"></div>
+    
+</section>
+
+    <main class="careers-main">
+    <!-- Search Section -->
+    <section class="careers-search">
+        <div class="search-container">
+            <h2>Find Your Dream Job</h2>
+            <h4>We're looking for great people to join our growing team</h4>
+            <div class="search-bar">
+                <!-- MODIFICATION: Added id="searchInput" -->
+                <input type="text" id="searchInput" placeholder="Search by job title, keywords, or location">
+                <!-- MODIFICATION: Added id="searchButton" and changed type to "button" -->
+                <button type="button" id="searchButton"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Listings Section -->
+    <section class="job-listings">
+        <div class="jobs-container">
+            <h2>Current Openings</h2>
+            <div id="noJobsMessage" class="no-jobs-message" style="display: none;">
+                Currently, there are no openings.
+            </div>
+            <!-- MODIFICATION: Added a new message div for search results -->
+            <div id="noResultsMessage" class="no-jobs-message" style="display: none;">
+                Result not found. No jobs match your search.
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Application Form Modal -->
+<div class="application-modal" id="applicationModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Apply for Position</h2>
+<form class="application-form" id="jobApplicationForm" method="post" >
+
+        <div class="form-group">
+        <label for="fullName">Full Name*</label>
+        <input type="text" id="fullName" name="fullName" required aria-required="true">
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email*</label>
+        <input type="email" id="email" name="email" required aria-required="true">
+        <small class="hint">We'll contact you at this address</small>
+    </div>
+    
+    <div class="form-group">
+        <label for="contactNumber">Phone Number*</label>
+        <input type="tel" id="contactNumber" name="contactNumber" required aria-required="true">
+    </div>
+    
+    <div class="form-group">
+        <label for="jobTitle">Position Applied For*</label>
+        <input type="text" id="jobTitle" name="jobTitle" readonly required aria-required="true">
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group half-width">
+            <label for="currentCTC">Current CTC (₹)*</label>
+            <input type="text" id="currentCTC" name="currentCTC" required aria-required="true">
+        </div>
+        <div class="form-group half-width">
+            <label for="expectedCTC">Expected CTC (₹)*</label>
+            <input type="text" id="expectedCTC" name="expectedCTC" required aria-required="true">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="experience">Years of Experience*</label>
+        <input type="number" id="experience" name="experience" min="0" step="0.5" required aria-required="true">
+    </div>
+    
+    <div class="form-group">
+        <label for="noticePeriod">Notice Period*</label>
+        <select id="noticePeriod" name="noticePeriod" required aria-required="true">
+            <option value="">Select...</option>
+            <option value="0">Immediate</option>
+            <option value="7">1 Week</option>
+            <option value="14">2 Weeks</option>
+            <option value="30">1 Month</option>
+            <option value="60">2 Months</option>
+            <option value="90">3 Months</option>
+        </select>
+    </div>
+    
+    <div class="form-group file-upload">
+        <label>Upload Resume (PDF, max 5MB)*</label>
+        <div class="file-upload-area" id="fileUploadArea">
+            <input type="file" id="resume" name="resume" accept=".pdf" >
+            <label for="resume" class="file-upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Click to upload your resume</span>
+            </label>
+            <span class="file-name" id="fileName">No file chosen</span>
+        </div>
+    </div>
+    <button type="submit" id="submitBtn" class="submit-btn">Submit Application</button>
+    <div id="formMessages" class="messages"></div>
+</form>
+    </div>
+</div>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Connect with us</h3>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/VlookUpGlobal/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/company/vlookup-global-technologies/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/vlookup_global_technologies/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about_us.html">About</a></li>
+                        <li><a href="service.html">Services</a></li>
+                        <li><a href="career.html">Careers</a></li>
+                        <li><a href="contact_us.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> No 5, 1-36/c, Rd Number 4, above Manikanta Traders, near SriLatha Theatre, Jawahar Colony, Chanda Nagar, Hyderabad, Telangana 500050</li>
+                        <li><i class="fas fa-phone"></i> +91 83281 18821</li>
+                        <li><i class="fas fa-envelope"></i> info@vlookupglobal.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VLookUp Global Technologies. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    
+    <!-- MODIFICATION: Main script for loading and searching jobs -->
+    <script type="module">
+      const { collection, getDocs } = window.fs;
+      const jobsContainer = document.querySelector(".jobs-container");
+      const noJobsMessage = document.getElementById("noJobsMessage");
+      
+      // New elements for search functionality
+      const searchInput = document.getElementById("searchInput");
+      const searchButton = document.getElementById("searchButton");
+      const noResultsMessage = document.getElementById("noResultsMessage");
+
+      let allJobs = []; // This array will hold all jobs fetched from Firebase
+
+      // Function to display jobs on the page
+      function displayJobs(jobList) {
+          // Clear only the job cards, not the titles or messages
+          const existingJobCards = jobsContainer.querySelectorAll('.job-card');
+          existingJobCards.forEach(card => card.remove());
+
+          // Hide messages by default
+          noResultsMessage.style.display = 'none';
+
+          if (jobList.length === 0) {
+              noResultsMessage.style.display = 'block'; // Show "not found" message
+          } else {
+              jobList.forEach(job => {
+                  const jobCard = document.createElement("div");
+                  jobCard.className = "job-card";
+                  jobCard.innerHTML = `
+                    <div class="job-header">
+                      <h3>${job.title}</h3>
+                      <span class="job-location">${job.location}</span>
+                    </div>
+                    <div class="job-details">
+                      <p><strong>Experience:</strong> ${job.experience}</p>
+                      <p>${job.job_description}</p>
+                      <div class="job-skills">
+                        ${job.skills.split(",").map(s => `<span>${s.trim()}</span>`).join("")}
+                      </div>
+                    </div>
+                    <a href="#" class="apply-btn" data-job-title="${job.title}">Apply Now</a>`;
+                  jobsContainer.appendChild(jobCard);
+              });
+          }
+
+          // Re-attach event listeners to the "Apply Now" buttons
+          document.querySelectorAll(".apply-btn").forEach(btn => {
+              btn.addEventListener("click", e => {
+                  e.preventDefault();
+                  document.getElementById("jobTitle").value = btn.getAttribute("data-job-title");
+                  document.getElementById("applicationModal").style.display = "block";
+              });
+          });
+      }
+
+      // Main function to load jobs from Firebase
+      async function loadCareerJobs() {
+          const snapshot = await getDocs(collection(window.db, "jobs"));
+          
+          allJobs = []; // Clear the array before loading
+          snapshot.forEach(docSnap => {
+              allJobs.push(docSnap.data());
+          });
+
+          if (allJobs.length === 0) {
+              noJobsMessage.style.display = "block";
+          } else {
+              noJobsMessage.style.display = "none";
+              displayJobs(allJobs); // Display all jobs initially
+          }
+      }
+
+      // Function to handle the search logic
+      function handleSearch() {
+          const searchTerm = searchInput.value.toLowerCase().trim();
+          
+          if (!searchTerm) {
+              displayJobs(allJobs); // If search is empty, show all jobs
+              return;
+          }
+
+          const filteredJobs = allJobs.filter(job => {
+              const title = (job.title || '').toLowerCase();
+              const location = (job.location || '').toLowerCase();
+              const description = (job.job_description || '').toLowerCase();
+              const skills = (job.skills || '').toLowerCase();
+              
+              return title.includes(searchTerm) ||
+                     location.includes(searchTerm) ||
+                     description.includes(searchTerm) ||
+                     skills.includes(searchTerm);
+          });
+
+          displayJobs(filteredJobs); // Display the filtered results
+      }
+
+      // Attach event listeners
+      searchButton.addEventListener("click", handleSearch);
+      searchInput.addEventListener("keyup", (event) => {
+          if (event.key === "Enter") {
+              handleSearch();
+          }
+      });
+
+      // Initial load of jobs when the page opens
+      loadCareerJobs();
+    </script>
+    
+    <script src="js/chatbot.js"></script>
+
+<script>
+  (function () {
+    const form = document.getElementById("jobApplicationForm");
+    const msg = document.getElementById("formMessages");
+
+    const fullNameEl = document.getElementById("fullName");
+    const emailEl = document.getElementById("email");
+    const phoneEl = document.getElementById("contactNumber");
+    const currentCTCEl = document.getElementById("currentCTC");
+    const expectedCTCEl = document.getElementById("expectedCTC");
+    const experienceEl = document.getElementById("experience");
+
+    // Live input filters (no layout/HTML changes)
+    fullNameEl.addEventListener("input", () => {
+      fullNameEl.value = fullNameEl.value.replace(/[^A-Za-z\s]/g, "");
+    });
+    [phoneEl, currentCTCEl, expectedCTCEl].forEach((el) => {
+      el.addEventListener("input", () => {
+        el.value = el.value.replace(/\D/g, ""); // digits only
+      });
+    });
+
+    function validate() {
+      msg.innerText = "";
+
+      const name = fullNameEl.value.trim();
+      const email = emailEl.value.trim();
+      const phone = phoneEl.value.trim();
+      const currentCTC = currentCTCEl.value.trim();
+      const expectedCTC = expectedCTCEl.value.trim();
+      const experience = experienceEl.value;
+
+      const nameRegex = /^[A-Za-z\s]+$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+      const phoneRegex = /^\d{10}$/;
+      const digitsRegex = /^\d+$/;
+
+      if (!name || !nameRegex.test(name)) return "Full Name must contain only letters and spaces.";
+      if (!emailRegex.test(email)) return "Please enter a valid email address.";
+      if (!phoneRegex.test(phone)) return "Phone Number must be exactly 10 digits.";
+      if (!digitsRegex.test(currentCTC)) return "Current CTC must contain numbers only.";
+      if (!digitsRegex.test(expectedCTC)) return "Expected CTC must contain numbers only.";
+      if (isNaN(parseFloat(experience)) || parseFloat(experience) < 0) return "Experience must be a valid number.";
+
+      const file = document.getElementById("resume").files[0];
+      if (!file) return "Please upload your resume (PDF).";
+      if (file.type !== "application/pdf") return "Please upload a PDF file for your resume.";
+      if (file.size > 5 * 1024 * 1024) return "Resume file size exceeds 5MB limit.";
+
+      return ""; // no errors
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const error = validate();
+      if (error) {
+        msg.innerText = error;
+        if (typeof showSnackbar === "function") showSnackbar(error, false);
+        return;
+      }
+      
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Submitting...";
+
+      const fileInput = document.getElementById("resume").files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = async function () {
+        const base64File = reader.result.split(",")[1];
+
+        const data = new URLSearchParams();
+        data.append("fullName", form.fullName.value);
+        data.append("email", form.email.value);
+        data.append("contactNumber", form.contactNumber.value);
+        data.append("jobTitle", form.jobTitle.value);
+        data.append("currentCTC", form.currentCTC.value);
+        data.append("expectedCTC", form.expectedCTC.value);
+        data.append("experience", form.experience.value);
+        data.append("noticePeriod", form.noticePeriod.value);
+        data.append("resume", base64File);
+
+        try {
+          const response = await fetch(
+            "https://script.google.com/macros/s/AKfycbzPYzZATw4asbKqI9VlOjvHn-mryuV_nY6Rnoa7LRI5G-urSAKkZPAF1sWP3e6V2uq8/exec",
+            { method: "POST", body: data }
+          );
+
+          const result = await response.json();
+
+          if (result.status === "success") {
+            if (typeof showSnackbar === "function") showSnackbar("Application submitted successfully!");
+            form.reset();
+            document.getElementById("fileName").innerText = "No file chosen";
+            document.getElementById("applicationModal").style.display = "none";
+          } else {
+            const m = "Error submitting form: " + (result.message || "Unknown error");
+            msg.innerText = m;
+            if (typeof showSnackbar === "function") showSnackbar(m, false);
+          }
+        } catch (err) {
+          const m = "Network Error submitting form: " + err.message;
+          msg.innerText = m;
+          if (typeof showSnackbar === "function") showSnackbar(m, false);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit Application";
+        }
+      };
+
+      reader.readAsDataURL(fileInput);
+    });
+  })();
+</script>
+
+      <!-- ✅ Add your JS here -->
+  <script>
+    // show selected file name
+    document.getElementById("resume").addEventListener("change", function() {
+      const fileNameDisplay = document.getElementById("fileName");
+      if (this.files.length > 0) {
+        fileNameDisplay.textContent = this.files[0].name;
+      } else {
+        fileNameDisplay.textContent = "No file chosen";
+      }
+    });
+
+    // Close modal when "×" is clicked
+  document.querySelector(".close-modal").addEventListener("click", function () {
+    document.getElementById("applicationModal").style.display = "none";
+  });
+
+  // Optional: Close modal when clicking outside the modal content
+  window.addEventListener("click", function (e) {
+    const modal = document.getElementById("applicationModal");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+function showSnackbar(message, isSuccess = true) {
+    const snackbar = document.getElementById("snackbar");
+    snackbar.innerText = message;
+    snackbar.style.backgroundColor = isSuccess ? "#28a745" : "#dc3545"; // Green or Red
+    snackbar.className = "show";
+
+    setTimeout(() => {
+      snackbar.className = snackbar.className.replace("show", "");
+    }, 4000);
+  }
+
+    </script>    
+</body>
+</html>

@@ -1,0 +1,239 @@
+/* Tablet Devices */
+@media (max-width: 992px) {
+    .hero .container,
+    .about .container {
+        flex-direction: column;
+    }
+
+    .hero-content,
+    .hero-image,
+    .about-content,
+    .about-image {
+        flex: none;
+        width: 100%;
+    }
+
+    .hero-content {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .services-grid,
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    /* Navbar hidden by default */
+    .navbar {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background-color: var(--bg-color, #fff);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    /* Show navbar when active */
+    .navbar.active {
+        left: 0;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Hamburger visible only on mobile */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: #333;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    /* Animate hamburger into X */
+    .hamburger.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Grid adjustments */
+    .services-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* CONTACT PAGE RESPONSIVE */
+@media (max-width: 992px) {
+    .contact-grid {
+        gap: 30px;
+    }
+
+    .contact-info1,
+    .contact-form {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-banner {
+        height: auto;
+        padding: 100px 0;
+    }
+
+    .page-banner .banner-content h1 {
+        font-size: 48px;
+        padding-top: 0;
+    }
+
+    .contact-method {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .contact-method i {
+        margin-top: 0;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-col {
+        text-align: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .contact-info li {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-banner .banner-content h1 {
+        font-size: 36px;
+    }
+
+    .contact-info1,
+    .contact-form {
+        padding: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .contact-logo img {
+        max-width: 150px;
+    }
+}
+
+/* Prevent overlap with fixed navbar */
+@media (min-width: 769px) {
+    .page-banner {
+        margin-top: 80px;
+    }
+}
+
+
+.hamburger {
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: none; /* shown only on mobile */
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+}

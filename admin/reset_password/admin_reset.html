@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reset Password</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .reset-container {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    .reset-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .btn {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .error-message {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .success-message {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reset-container">
+    <h2>Reset Password</h2>
+    <form id="resetForm">
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" required>
+      </div>
+      <button type="submit" class="btn">Reset Password</button>
+      <p class="error-message" id="errorMessage">Passwords do not match.</p>
+      <p class="success-message" id="successMessage">Password reset successfully!</p>
+    </form>
+  </div>
+
+  <!-- <script>
+    const form = document.getElementById('resetForm');
+    const error = document.getElementById('errorMessage');
+    const success = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newPassword = document.getElementById('newPassword').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+      if (newPassword !== confirmPassword) {
+        error.style.display = 'block';
+        success.style.display = 'none';
+      } else {
+        error.style.display = 'none';
+        success.style.display = 'block';
+
+        // TODO: Send new password to backend API securely
+        // Example: fetch('/api/reset-password', { method: 'POST', body: JSON.stringify({ password: newPassword }) })
+      }
+    });
+  </script> -->
+    <script>
+    const form = document.getElementById('resetForm');
+    const error = document.getElementById('errorMessage');
+    const success = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newPassword = document.getElementById('newPassword').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+      if (newPassword !== confirmPassword) {
+        error.style.display = 'block';
+        success.style.display = 'none';
+        return;
+      }
+
+      // ✅ Save to localStorage
+      localStorage.setItem("adminPassword", newPassword);
+
+      error.style.display = 'none';
+      success.style.display = 'block';
+
+      // ✅ Redirect to login after short delay
+      setTimeout(() => {
+        window.location.href = "/admin/login.html"; // Update if your path differs
+      }, 2000);
+    });
+  </script>
+  <script src="/admin/reset_password/reset.js"></script>
+</body>
+</html>

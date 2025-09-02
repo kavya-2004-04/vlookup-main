@@ -1,0 +1,37 @@
+App Script Code :
+   -> The Column names should be in this format(name, email, subject, message, timestamp)
+   -> Google sheet name should be: Contact_form_submissions
+
+Code: 
+
+  function doPost(e) {
+  try {
+    // Get the submitted data
+    const data = JSON.parse(e.postData.contents);
+    
+    // Open the spreadsheet by ID
+    const sheet = SpreadsheetApp.openById('SHEET_ID') // here you have to keep the google sheet id of yours
+      .getSheetByName('Sheet1'); // Change if using a different sheet name
+    
+    // Append the data to the sheet
+    sheet.appendRow([
+      data.name,
+      data.email,
+      data.subject,
+      data.message,
+      new Date() // Timestamp
+    ]);
+    
+    // Return success response
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'success', message: 'Data saved successfully' })
+    ).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    // Return error response
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'error', message: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+

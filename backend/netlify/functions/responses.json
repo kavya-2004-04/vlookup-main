@@ -1,0 +1,199 @@
+{
+  "manualResponses": {
+    "slogan": "✨ Our slogan is: 'Building Powerful Software. Connecting Top Talent.'",
+    "motto": "✨ Our motto is: 'Building Powerful Software. Connecting Top Talent.'"
+  },
+  "responseTemplates": {
+    "greeting": {
+      "triggers": ["hi", "hello", "hey", "hlo", "hii", "hy", "hloo", "good morning", "good afternoon", "good evening", "greetings", "welcome","der"],
+      "response": "👋 Hi! Welcome to vlookup. Are you here as a Job Seeker, Employer, or just exploring our services?",
+      "options": ["I’m a Job Seeker", "I’m an Employer", "Learn More About Services"]
+    },
+    "contextualResponses": {
+      "jobSeeker": {
+        "welcome": "Great! I can help with your job search. You can ask about current openings, how to apply, or resume support.",
+        "responses": {
+          "job_openings_current": { 
+            "triggers": ["what job openings do you have", "current openings", "open positions", "vacancy", "job opportunities", "available jobs", "job roles", "hiring now", "job listings", "job vacancies", "job positions", "job availability", "job offers", "job ads", "job announcements", "job postings"],
+             "response": "We have opportunities in IT, Non-IT, Contract, and Permanent roles. For a detailed list of current openings, please visit our <a href='/career.html' target='_blank'><strong>Careers Page</strong></a>."
+             },
+          "how_to_apply": { 
+            "triggers": ["how can i apply", "application process", "apply for a job", "job application", "submit my resume", "send my cv", "job submission", "application steps", "application procedure", "application guidelines", "application instructions", "application details", "application info"], 
+            "response": "You can view all our open positions and apply directly through our user-friendly <a href='/career.html' target='_blank'><strong>Careers Page</strong></a>. Our recruiters will review your application and reach out if there’s a match."
+           },
+          "candidate_fees": {
+             "triggers": ["do you charge candidates", "do i have to pay", "candidate fees", "application fees", "job seeker fees", "recruitment fees", "service charges", "payment for job search", "cost to apply", "fee for application", "fee for job search", "fee for recruitment services"], 
+             "response": "No ❌. We never charge job seekers. Our recruitment services are completely free for candidates."
+             },
+          "application_timeline": { 
+            "triggers": ["when will I hear back", "how long to hear back", "application timeline", "response time", "application status timeline", "hiring timeline", "recruitment timeline", "feedback time", "follow-up time", "waiting period", "processing time", "review time", "decision time"], 
+            "response": "Typically within 3–7 working days, depending on client requirements."
+           },
+          "candidate_support": { 
+            "triggers": ["resume support", "do you offer training", "interview preparation", "skill development", "resume building", "mock interviews", "career coaching", "job readiness", "job preparation", "job training", "job support", "career support", "career training", "career development"],
+             "response": "Yes ✅, we provide interview preparation, resume building, and skill development programs. Would you like to explore training services?"
+             },
+          "training_services_info": { 
+            "triggers": ["yes","yep","go a head","u can","you can","youcan"], "response": "Great! To learn more about our skill development and training programs, please visit our <a href='/service.html' target='_blank'><strong>Services Page</strong></a> or get in touch with our team via the <a href='/contact_us.html' target='_blank'><strong>Contact Page</strong></a> for personalized guidance."
+           },
+          "remote_jobs": { 
+            "triggers": ["remote jobs", "work from home", "remote opportunities", "telecommute jobs", "virtual jobs", "remote work", "work remotely", "remote positions", "remote roles", "remote vacancies", "remote openings", "remote employment", "remote hiring", "remote careers"],
+             "response": "Yes, we provide Remote, Hybrid, and Onsite opportunities. Would you like me to show remote-only jobs?"
+             },
+          "remote_jobs_yes": { 
+            "triggers": ["yes", "show me remote jobs", "remote only", "remote positions only", "only remote", "remote roles only", "remote vacancies only", "remote openings only", "remote employment only", "remote hiring only", "remote careers only"],
+             "response": "To see all available remote positions, please filter by 'Remote' on our <a href='/career.html' target='_blank'><strong>Careers Page</strong></a>." 
+            },
+          "fresher_jobs": { 
+            "triggers": ["fresher jobs", "entry-level roles", "jobs for fresh graduates", "junior positions", "internships", "graduate roles", "fresher openings", "fresher vacancies", "fresher opportunities", "fresher employment", "fresher hiring", "fresher careers"], 
+            "response": "Absolutely! We have strong partnerships with companies that hire fresh graduates. All our entry-level roles and campus drive information can be found on our <a href='/career.html' target='_blank'><strong>Careers Page</strong></a>." 
+          },
+          "application_status": { 
+            "triggers": ["how do i track my application", "check my status", "application status", "track my application", "application update", "application progress", "application follow-up", "application review", "application feedback", "application inquiry", "application monitoring", "application tracking"],
+             "response": "Currently, application status tracking is not available through the chatbot. For an update on your application, please feel free to reach out to us directly through our <a href='/contact_us.html' target='_blank'><strong>Contact Page</strong></a>, and our team will be happy to assist you." 
+            },
+          "international_placements": { 
+            "triggers": ["international placements", "gulf jobs", "us jobs", "europe jobs", "overseas jobs", "global opportunities", "international opportunities", "foreign jobs", "jobs abroad", "work abroad", "international hiring", "international careers", "international recruitment"], 
+            "response": "Yes, we have partners for Gulf, US, and Europe job placements. For more details on international opportunities, please get in touch with our specialists via our <a href='/contact_us.html' target='_blank'><strong>Contact Page</strong></a>."
+           },
+          "interview_guidance": {
+             "triggers": ["interview guidance", "mock interviews", "interview practice", "interview coaching", "interview tips", "interview prep", "interview preparation", "interview training", "interview support", "interview help", "interview advice", "interview strategies", "interview techniques"],
+              "response": "Yes, we offer mock interviews, skill training, and resume makeover sessions." 
+            },
+          "no_follow_up": { 
+  "triggers": ["no", "no thanks", "nope", "not now", "maybe later", "don't need", "don't want", "no need", "no interest", "not interested", "no thank you","no need","no thx","no thnx","dont need","dont want","dont need it","dont want it"],
+  "response": "Alright, no problem! Feel free to ask anything else if you change your mind. Have a great day!"
+}
+        }
+      },
+      "employer": {
+
+        "welcome": "Excellent! We can help you find the best talent. Ask about our staffing services, hiring process, or how to get started.",
+        "responses": {
+          "staffing_services_detail": {
+             "triggers": ["what staffing services", "recruitment services", "staffing solutions", "hiring services", "talent acquisition", "recruitment solutions", "staffing options", "hiring solutions", "talent sourcing", "recruitment support", "staffing support", "hiring support", "talent recruitment"],
+              "response": "We offer IT & Non-IT recruitment, temporary & permanent staffing, payroll outsourcing, campus hiring, and contract staffing. You can find more details on our <a href='/service.html' target='_blank'><strong>Services Page</strong></a>."
+             },
+          "how_to_hire": { 
+            "triggers": ["how do I hire", "hiring process", "recruitment process", "staffing process", "talent acquisition process", "hiring steps", "recruitment steps", "staffing steps", "talent acquisition steps", "hiring procedure", "recruitment procedure", "staffing procedure", "talent acquisition procedure"],
+             "response": "The best way to start is by sharing your requirements with us through our <a href='/contact_us.html' target='_blank'><strong>Contact Page</strong></a>. Our business team will schedule a call to understand your needs and provide qualified candidates." 
+            },
+          "hiring_turnaround_time": {
+             "triggers": ["what is your turnaround time", "how fast", "time to hire", "hiring timeline", "recruitment timeline", "staffing timeline", "time to fill", "time to recruit", "time to staff", "hiring duration", "recruitment duration", "staffing duration"], 
+             "response": "Depending on the role, we provide profiles within 24–72 hours."
+             },
+          "bulk_hiring_support": { 
+            "triggers": ["bulk hiring", "campus drives", "fresher hiring", "entry-level hiring", "mass recruitment", "large scale hiring", "bulk recruitment", "campus recruitment", "fresher recruitment", "entry-level recruitment", "mass hiring", "large scale recruitment"], 
+            "response": "Yes, we specialize in bulk hiring and campus drives for fresher & entry-level roles."
+           },
+          "payroll_management": { 
+            "triggers": ["can you handle payroll", "payroll services", "payroll management", "payroll outsourcing", "payroll support", "payroll solutions", "payroll processing", "payroll administration", "payroll handling", "payroll assistance", "payroll help", "payroll services for employers"],
+             "response": "Yes, we provide end-to-end payroll services, compliance, and HRMS support for organizations."
+             },
+          "schedule_meeting": { 
+            "triggers": ["schedule a meeting", "schedule a call", "set up a meeting", "set up a call", "book a meeting", "book a call", "arrange a meeting", "arrange a call", "meeting request", "call request", "meeting setup", "call setup", "meeting booking", "call booking"],
+                      "response": "Of course! The best way to schedule a meeting is to contact our business team directly. You can call us at 📞 **+91 83281 18821** or email your request to 📧 <a href=\"mailto:career@vlookupglobal.com\"><strong>career@vlookupglobal.com</strong></a>."  
+          },
+          "customized_hiring": {
+             "triggers": ["customized hiring solutions", "tailored staffing", "bespoke recruitment", "personalized hiring", "custom recruitment", "tailored recruitment", "bespoke staffing", "personalized staffing", "custom staffing", "tailored hiring solutions", "bespoke hiring solutions", "personalized hiring solutions"], 
+             "response": "Yes, our team tailors staffing strategies based on your budget, role, and urgency."
+             },
+   "yes_follow_up": { 
+  "triggers": ["yes", "yep", "sure", "absolutely", "of course", "why not", "definitely", "certainly", "please do", "go ahead", "you can", "youcan", "i would like to"], 
+  "response": "Great! What can I help you with? You can ask about our staffing services, hiring process, or turnaround times." 
+},
+"no_follow_up": { 
+  "triggers": ["no", "no thanks", "nope", "not now", "maybe later", "don't need", "don't want", "no need", "no interest", "not interested", "no thank you","no need","no thx","no thnx","dont need","dont want","dont need it","dont want it"], 
+  "response": "Understood. Please feel free to get in touch if you have any questions in the future. Have a great day!" 
+}
+        }
+      },
+      "general": {
+  
+        "welcome": "I can provide more details about our company. What would you like to know?",
+        "responses": {
+          "howareyou": { 
+            "triggers": ["how are you","how r u","how do you do","how's it going","how is it going","how have you been","how are things","how's everything","how's life","how's your day"], 
+            "response": "😊 I'm a bot, but I'm ready to help! What can I tell you about VlookUp Global?" 
+          },
+          "about": {
+             "triggers": ["about","who are you","what is vlookup", "about them", "about you", "about vlookup", "who is vlookup", "what do you do", "what is your mission", "what is your vision", "company info", "company information", "company details", "company background", "company overview", "company story", "company profile"], 
+             "response": "🌟 VlookUp Global helps businesses grow by providing two key pillars for success: cutting-edge technology and top-tier talent. For a deeper look into our story and values, we invite you to visit our <a href='/about_us.html' target='_blank'><strong>About Us Page</strong></a>."
+             },
+          "services": { 
+            "triggers": ["service","offer","what do you do","what services", "services you offer", "services provided", "services available", "service offerings", "service details", "service info", "service information", "service overview", "service list", "service description", "service summary"], 
+            "response": "💼 We offer a range of IT and Non-IT solutions, including custom software and staffing. For a complete overview, please visit our <a href='/service.html' target='_blank'><strong>Services Page</strong></a> or learn more about our company's mission on our <a href='/about_us.html' target='_blank'><strong>About Us page</strong></a>." 
+          },
+          "home": { 
+            "triggers": ["home page", "main page", "go to home", "return to home", "back to home", "home", "homepage", "main", "index", "go home", "take me home", "navigate to home", "visit home page", "visit main page"],
+             "response": "Of course! You can return to our main page by clicking here: <a href='/index.html' target='_blank'><strong>Home Page</strong></a>." 
+            },
+          "careers": { 
+            "triggers": ["career", "careers", "job", "opening", "openings", "vacancy", "vacancies", "job opportunities", "job openings", "job listings", "job positions", "hiring", "join us", "work with us", "job roles", "job applications", "job offers", "job ads", "job announcements", "job postings"], 
+            "response": "🧑‍💼 We're always looking for talented people! For all current openings, please check the <a href='/career.html' target='_blank'><strong>Careers Page</strong></a> on our website."
+           },
+          "contactinfo": { 
+            "triggers": ["contact", "reach out", "get in touch", "contact info", "contact information", "contact details", "contact us", "how to contact", "how to reach", "how to get in touch", "contact support", "contact help", "contact assistance", "contact team", "contact department"], 
+            "response": "📩 You can reach us directly via our <a href='/contact_us.html' target='_blank'><strong>Contact Page</strong></a>, or through:\n📧 **<a href=\"mailto:info@vlookupglobal.com\"><strong>info@vlookupglobal.com</strong></a>**\n📞 **+91 83281 18821**" 
+          },
+          "address": { "triggers": [ "address", "location", "where are you", "office location", "office address", "company address", "company location", "where is your office", "where is vlookup", "vlookup location", "vlookup address", "office whereabouts", "company whereabouts", "business address", "business location"],
+           "response": "📍 Our office is in Hyderabad! The full address is:\n**Jawahar Colony, Chanda Nagar, Hyderabad, Telangana 502032.**\n\n<a href=\"https://www.google.com/maps/search/?api=1&query=Vlookup+Chanda+Nagar+Hyderabad\" target='_blank'><strong>Click here for directions on Google Maps!</strong></a> 🗺️" },
+          "email": { 
+            "triggers": ["email", "mail", "e-mail", "email address", "contact email", "company email", "how to email", "how to contact via email", "email info", "email information", "email details", "email us", "reach via email", "get in touch via email"], 
+            "response": "📧 Of course! You can email us at: **<a href=\"mailto:career@vlookupglobal.com\"><strong>career@vlookupglobal.com</strong></a>**" 
+          },
+          "phone": { 
+            "triggers": ["phone", "number", "call", "phone number", "contact number", "company phone", "company number", "how to call", "how to contact via phone", "phone info", "phone information", "phone details", "call us", "reach via phone", "get in touch via phone"],
+             "response": "📞 Certainly! Our number is: **+91 83281 18821**"
+             },
+          "software_development": {
+             "triggers": ["software development", "custom software", "software solutions", "software services", "software products", "software engineering", "software design", "software creation", "software building", "software programming", "software coding", "software applications", "software systems", "software platforms"], 
+             "response": "💻 We create powerful, tailored software to meet your business needs. You can learn more on our <a href='/service.html' target='_blank'><strong>Services Page</strong></a>."
+             },
+          "it_staffing": {
+             "triggers": ["it staffing", "it recruitment", "it hiring", "it talent", "it workforce", "it personnel", "it human resources", "it employees", "it team", "it consultants", "it contractors", "it specialists", "it experts", "it professionals"], 
+             "response": "👩‍💻 We find top tech talent for your team, including developers, QA specialists, architects, and data analysts."
+             },
+          "mission": { 
+            "triggers": ["mission", "purpose", "our mission", "company mission", "what is your mission", "mission statement", "company purpose", "business mission", "organizational mission", "mission overview", "mission details", "mission info", "mission information"], 
+            "response": "🎯 Our mission is to empower businesses with the innovative software and exceptional talent they need to achieve measurable success."
+           },
+          "vision": {
+             "triggers": ["vision", "our vision", "company vision", "what is your vision", "vision statement", "business vision", "organizational vision", "vision overview", "vision details", "vision info", "vision information"], 
+             "response": "🚀 Our vision is to be the world's leading partner for technology and talent, known for our commitment to quality and client success." 
+            },
+          "ceo": { 
+            "triggers": ["ceo", "founder"], "response": "👤 Our CEO and Founder is **Sandeep Kumar Koora**."
+           },
+          "thanks": { 
+            "triggers": ["thank","thanks","thank you","thx","thnx","thank u","thankyou","thank's","thanx","tnx","tq","tqvm","ty","tyvm","gracias","merci","danke","arigato","grazie","obrigado","spasibo","shukriya","dhanyavaad"],
+             "response": "😊 You're most welcome! Is there anything else I can assist you with?"
+             },
+          "goodbye": { 
+            "triggers": ["bye","goodbye","see you","see ya","later","farewell","take care","catch you later","talk to you later","i'm off","i am off","got to go","gotta go","leaving now","leaving","exit","quit"], 
+            "response": "👋 Have a great day! Don't hesitate to reach out if you need anything else." 
+          },
+          "acknowledgement": {
+  "triggers": ["ok", "okay", "got it", "alright", "fine", "cool", "understood", "i see"],
+  "response": "👍 Understood! Let me know if you need anything else."
+},
+                "yes_follow_up": { 
+  "triggers": ["yes", "yep", "sure", "absolutely", "of course", "why not", "definitely", "certainly", "please do", "go ahead", "you can", "youcan", "i would like to"], 
+  "response": "Perfect! What would you like to know about our company or services?" 
+},
+"no_follow_up": { 
+  "triggers": ["no", "no thanks", "nope", "not now", "maybe later", "don't need", "don't want", "no need", "no interest", "not interested", "no thank you","no need","no thx","no thnx","dont need","dont want","dont need it","dont want it","nothing"], 
+  "response": "No problem at all! If you think of anything else, just let me know. Have a great day!" 
+}
+        }
+      }
+    },
+    "fallbacks": {
+      "initial": "To get started, please choose one of the options above. Are you a Job Seeker or an Employer?",
+      "jobSeeker": "I can't answer that, but I can help with questions about job openings, the application process, or resume support. How can I assist?",
+      "employer": "I don't have information on that, but I can assist with our staffing services, the hiring process, or turnaround times. What would you like to know?",
+      "apiError": "🤖 My advanced knowledge base seems to be offline at the moment. Please try asking a simpler question.",
+      "global": "🤔 I'm not sure I can answer that. You can ask me about our services, company info, or career opportunities."
+    }
+  }
+}

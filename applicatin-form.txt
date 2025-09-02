@@ -1,0 +1,111 @@
+App Script File :
+   -> YOu need to replace the YOUR_FOLDER_ID and YOUR_SHEET_ID, with the drive folder id and google sheet id.
+    -> and deploy the web app and make sure to change that script link in html form and js file.
+
+
+
+var sheetName = 'Sheet1'
+var uploadFolderID = 'YOUR_FOLDER_ID'  // Replace with your Drive folder ID
+// var scriptProp = PropertiesService.getScriptProperties()
+var spreadsheetID = 'YOUR_SHEET_ID'; 
+
+// function intialSetup () {
+//   var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet()
+//   scriptProp.setProperty('key', activeSpreadsheet.getId())
+// }
+
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    var doc = SpreadsheetApp.openById(spreadsheetID);
+    if (!doc) {
+      throw new Error("Could not find spreadsheet with ID: " + spreadsheetID);
+    }
+    var sheet = doc.getSheetByName(sheetName);
+    if (!sheet) {
+      throw new Error("Could not find sheet with name: " + sheetName);
+    }
+
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    var nextRow = sheet.getLastRow() + 1;
+
+    var newRow = headers.map(function(header) {
+      if (header === "timestamp") {
+        return new Date();
+      }
+      // Handle all form fields
+      return e.parameter[header] || "";
+    });
+
+    // Handle media file upload
+    if(e.parameter.resume && e.parameter.resumeName) {
+      const fileExtension = e.parameter.resumeName.split('.').pop().toLowerCase();
+      const mimeType = getMimeType(fileExtension);
+      
+      const mediaBlob = Utilities.newBlob(
+        Utilities.base64Decode(e.parameter.resume),
+        mimeType,
+        e.parameter.resumeName
+      );
+
+      // Save file to Google Drive
+      const folder = DriveApp.getFolderById(uploadFolderID); // Replace with your Drive folder ID
+      const file = folder.createFile(mediaBlob);
+      const fileUrl = file.getUrl();
+
+      // Find the "Media" column index in headers
+      const resumeColumnIndex = headers.indexOf("resume");
+      if (resumeColumnIndex > -1) {
+        newRow[resumeColumnIndex] = fileUrl;
+      } else {
+        // Add to the end if "media" column doesn't exist
+        newRow.push(fileUrl);
+      }
+    } else {
+      // Add an empty value if no media uploaded
+      const resumeColumnIndex = headers.indexOf("resume");
+      if (resumeColumnIndex > -1) {
+        newRow[resumeColumnIndex] = "";
+      } else {
+        newRow.push("");
+      }
+    }
+    
+    // Write the new row data to the sheet
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: "success", row: nextRow }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ result: "error", error: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+
+
+// Helper function to determine MIME type based on file extension
+function getMimeType(extension) {
+  const mimeTypes = {
+    'pdf': MimeType.PDF,
+    'doc': MimeType.MICROSOFT_WORD,
+    'docx': MimeType.MICROSOFT_WORD,
+    'xls': MimeType.MICROSOFT_EXCEL,
+    'xlsx': MimeType.MICROSOFT_EXCEL,
+    'ppt': MimeType.MICROSOFT_POWERPOINT,
+    'pptx': MimeType.MICROSOFT_POWERPOINT,
+    'jpg': MimeType.JPEG,
+    'jpeg': MimeType.JPEG,
+    'png': MimeType.PNG,
+    'txt': MimeType.PLAIN_TEXT
+  };
+  
+  return mimeTypes[extension] || MimeType.PLAIN_TEXT;
+}

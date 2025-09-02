@@ -1,0 +1,11 @@
+[build]
+  # This tells Netlify that your website files are in the main folder.
+  publish = "/"
+  # This tells Netlify where to find your serverless function.
+  functions = "netlify/functions/"
+
+[[redirects]]
+  # This redirects requests from /api/* to your serverless function.
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
