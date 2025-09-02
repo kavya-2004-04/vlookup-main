@@ -10,6 +10,52 @@
 	<meta name="description" content="Contact VLookUp Global Technologies">
     <link rel="stylesheet" href="chatbot.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- ✅ FIX: Added CSS styles for the snackbar -->
+    <style>
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1001;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;} 
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;} 
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -87,7 +133,6 @@
 								<div class="contact-wrap w-100 p-md-5 p-4">
 									<h3 class="mb-4">Contact Us</h3>
 									
-                                    <!-- ✅ FIX: Added action attribute to the form -->
 									<form action="https://formsubmit.co/vlookupglobal@gmail.com" method="POST" id="contactForm" name="contactForm" class="contactForm">
 										<div class="row">
 											<div class="col-md-6">
@@ -121,9 +166,7 @@
 												</div>
 											</div>
 										</div>
-                                        <!-- Optional: Added hidden inputs for better FormSubmit integration -->
                                         <input type="hidden" name="_captcha" value="false">
-                                        <input type="hidden" name="_next" value="https://your-domain.co/thanks.html"> <!-- Replace with your thank you page -->
 									</form>
 								</div>
 							</div>
@@ -175,9 +218,54 @@
         </div>
     </footer>
 
-    <!-- ✅ FIX: Commented out or removed the interfering script -->
-    <!-- <script src="js/contact.js"></script> -->
+    <!-- ✅ FIX: Added HTML for the snackbar -->
+    <div id="snackbar"></div>
+
 	<script src="chatbot.js"></script>
+
+    <!-- ✅ FIX: This new script handles the form submission and shows the snackbar -->
+    <script>
+        // Function to show the snackbar
+        function showSnackbar(message, isSuccess = true) {
+            const snackbar = document.getElementById("snackbar");
+            snackbar.innerText = message;
+            // You can customize colors for success/error
+            snackbar.style.backgroundColor = isSuccess ? '#28a745' : '#dc3545'; // Green for success, Red for error
+            snackbar.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+        }
+
+        // Get the form element
+        const form = document.getElementById('contactForm');
+    
+        // Add an event listener for the form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default page reload
+    
+            const formData = new FormData(form);
+            const action = form.getAttribute('action');
+    
+            // Use the fetch API to send the form data
+            fetch(action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    showSnackbar('Your message has been sent, thank you!', true);
+                    form.reset();
+                } else {
+                    showSnackbar('Oops! There was a problem submitting your form.', false);
+                }
+            }).catch(error => {
+                showSnackbar('Oops! There was a network error.', false);
+            });
+        });
+    </script>
 
 </body>
 </html>
